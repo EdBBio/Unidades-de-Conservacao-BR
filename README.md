@@ -3,7 +3,20 @@ Unidades de conservação em território brasileiro
 Edson Nilton de Moura SIlva Júnior
 2024-01-24
 
-
+<style>
+body {
+text-align: justify;
+font-size: 20px}
+blockquote {
+  background-color: #FAEFA6;
+  padding: 10px;
+  font-size: 14.5px
+}
+</style>
+<script>
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
 
 # **Pacotes**
 
@@ -360,8 +373,8 @@ ucs %>%
   ggplot() +
   geom_sf(data = br, color = "black") +
   geom_sf(aes(fill = Bioma, color = Bioma), alpha = 0.3) +
-  scale_fill_manual(values = c("darkgreen", "gold2", "orange3", "green3", "purple", "red2", "lightblue3")) +
-  scale_color_manual(values = c("darkgreen", "gold4", "orange4", "green4", "purple3", "red4", "lightblue4")) +
+  scale_fill_manual(values = c("darkgreen", "gold2", "orange3", "green3", "purple", "red2", "cyan2")) +
+  scale_color_manual(values = c("darkgreen", "gold4", "orange4", "green4", "purple3", "red4", "cyan4")) +
   scale_x_continuous(expand = c(0, 0)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme(axis.text = element_text(color = "black", size = 12),
