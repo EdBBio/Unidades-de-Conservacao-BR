@@ -3,21 +3,6 @@ Unidades de conservação em território brasileiro
 Edson Nilton de Moura SIlva Júnior
 2024-01-24
 
-<style>
-body {
-text-align: justify;
-font-size: 20px}
-blockquote {
-  background-color: #FAEFA6;
-  padding: 10px;
-  font-size: 14.5px
-}
-</style>
-<script>
-  addClassKlippyTo("pre.r, pre.markdown");
-  addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
-</script>
-
 # **Pacotes**
 
 ``` r
