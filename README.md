@@ -22,25 +22,9 @@ blockquote {
 
 ``` r
 library(tidyverse) 
-```
 
-    ## ── Attaching core tidyverse packages ────────────────
-    ## ✔ dplyr     1.1.2     ✔ readr     2.1.4
-    ## ✔ forcats   1.0.0     ✔ stringr   1.5.0
-    ## ✔ ggplot2   3.4.2     ✔ tibble    3.2.1
-    ## ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-    ## ✔ purrr     1.0.1     
-    ## ── Conflicts ─────────────── tidyverse_conflicts() ──
-    ## ✖ dplyr::filter() masks stats::filter()
-    ## ✖ dplyr::lag()    masks stats::lag()
-    ## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
-
-``` r
 library(sf)
 ```
-
-    ## Linking to GEOS 3.11.2, GDAL 3.6.2, PROJ 9.2.0;
-    ## sf_use_s2() is TRUE
 
 # **Dados**
 
@@ -244,7 +228,7 @@ ucs %>%
   geom_sf()
 ```
 
-![](Unidades-de-conservação-em-território-brasileiro_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](Unidades-de-conservação-em-território-brasileiro_files/figure-gfm/unnamed-chunk-3-1.png)
 
 ## Território brasileiro, baixado do [Instituto Brasileiro de Geografia Estatística](https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2022/Brasil/BR/BR_Pais_2022.zip)
 
@@ -295,17 +279,13 @@ br_area <- br %>%
 br_area
 ```
 
-    ## 8542841 [m^2]
+    ## 8510419 [m^2]
 
 ## Unidades de conservação
 
 ``` r
 sf::sf_use_s2(FALSE)
-```
 
-    ## Spherical geometry (s2) switched off
-
-``` r
 ucs_area <- ucs %>% 
   sf::st_make_valid() %>% 
   sf::st_union() %>% 
@@ -327,4 +307,4 @@ ucs_area
 ucs_area * 100 / br_area 
 ```
 
-    ## 29.37519 [1]
+    ## 29.4871 [1]
