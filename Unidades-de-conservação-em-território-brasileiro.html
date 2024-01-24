@@ -1912,21 +1912,28 @@ br &lt;- br[4] %&gt;%
 <h1><strong>Áreas em Km²</strong></h1>
 <div id="território-brasileiro" class="section level2">
 <h2>Território brasileiro</h2>
-<pre class="r"><code>br %&gt;% 
-  sf::st_area() / 1000000</code></pre>
+<pre class="r"><code>br_area &lt;- br %&gt;% 
+  sf::st_area() / 1000000
+
+br_area</code></pre>
 <pre><code>## 8510419 [m^2]</code></pre>
 </div>
 <div id="unidades-de-conservação" class="section level2">
 <h2>Unidades de conservação</h2>
 <pre class="r"><code>sf::sf_use_s2(FALSE)
 
-ucs %&gt;% 
+ucs_area &lt;- ucs %&gt;% 
   sf::st_make_valid() %&gt;% 
   sf::st_union() %&gt;% 
   sf::st_area() / 1000000</code></pre>
 <pre><code>## although coordinates are longitude/latitude,
 ## st_union assumes that they are planar</code></pre>
+<pre class="r"><code>ucs_area</code></pre>
 <pre><code>## 2509476 [m^2]</code></pre>
+</div>
+<div id="dá-área-das-unidades-de-conservação-sobre-o-território-brasileiro" class="section level2">
+<h2>% dá área das unidades de conservação sobre o território
+brasileiro</h2>
 </div>
 </div>
 
