@@ -12,6 +12,11 @@ blockquote {
   padding: 10px;
   font-size: 14.5px
 }
+</style>
+<script>
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
 
 # **Pacotes**
 
