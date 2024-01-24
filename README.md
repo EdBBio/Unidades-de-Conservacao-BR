@@ -228,7 +228,7 @@ ucs %>%
   geom_sf()
 ```
 
-![](unnamed-chunk-3-1.png)
+![](Unidades-de-conservação-em-território-brasileiro_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 ## Território brasileiro, baixado do [Instituto Brasileiro de Geografia Estatística](https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2022/Brasil/BR/BR_Pais_2022.zip)
 
@@ -266,7 +266,57 @@ br %>%
   geom_sf()
 ```
 
-![](unnamed-chunk-4-1.png)<!-- -->
+![](Unidades-de-conservação-em-território-brasileiro_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+\## Biomas, baixados do [Instituto Brasileiro de Geografia
+Estatística](http://geoftp.ibge.gov.br/informacoes_ambientais/estudos_ambientais/biomas/vetores/Biomas_250mil.zip)
+
+``` r
+biomas <- unzip("Biomas_250mil.zip")
+
+biomas <- biomas[6] %>% 
+  sf::st_read()
+```
+
+    ## Reading layer `lm_bioma_250' from data source 
+    ##   `G:\Meu Drive\UFPE\boana semilineata\lm_bioma_250.shp' 
+    ##   using driver `ESRI Shapefile'
+    ## Simple feature collection with 6 features and 2 fields
+    ## Geometry type: MULTIPOLYGON
+    ## Dimension:     XY
+    ## Bounding box:  xmin: -73.98318 ymin: -33.75118 xmax: -28.84777 ymax: 5.269581
+    ## Geodetic CRS:  SIRGAS 2000
+
+``` r
+biomas
+```
+
+    ## Simple feature collection with 6 features and 2 fields
+    ## Geometry type: MULTIPOLYGON
+    ## Dimension:     XY
+    ## Bounding box:  xmin: -73.98318 ymin: -33.75118 xmax: -28.84777 ymax: 5.269581
+    ## Geodetic CRS:  SIRGAS 2000
+    ##            Bioma CD_Bioma
+    ## 1       Amazônia        1
+    ## 2       Caatinga        2
+    ## 3        Cerrado        3
+    ## 4 Mata Atlântica        4
+    ## 5          Pampa        5
+    ## 6       Pantanal        6
+    ##                         geometry
+    ## 1 MULTIPOLYGON (((-44.08515 -...
+    ## 2 MULTIPOLYGON (((-41.7408 -2...
+    ## 3 MULTIPOLYGON (((-43.39009 -...
+    ## 4 MULTIPOLYGON (((-48.70814 -...
+    ## 5 MULTIPOLYGON (((-52.82472 -...
+    ## 6 MULTIPOLYGON (((-57.75946 -...
+
+``` r
+biomas %>% 
+  ggplot() +
+  geom_sf()
+```
+
+![](Unidades-de-conservação-em-território-brasileiro_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 # **Áreas em Km²**
 
