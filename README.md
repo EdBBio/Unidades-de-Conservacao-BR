@@ -3,6 +3,21 @@ Unidades de conservação em território brasileiro
 Edson Nilton de Moura SIlva Júnior
 2024-01-24
 
+<style>
+body {
+text-align: justify;
+font-size: 20px}
+blockquote {
+  background-color: #FAEFA6;
+  padding: 10px;
+  font-size: 14.5px
+}
+</style>
+<script>
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+
 # **Pacotes**
 
 ``` r
@@ -16,9 +31,9 @@ library(sf)
 ## Unidades de conservação, baixadas do [Cadastro Nacional de Unidades de Conservação](https://cnuc.mma.gov.br/map)
 
 ``` r
-uc <- unzip("ucs.zip")
+ucs <- unzip("ucs.zip")
 
-ucs <- uc[3] %>% 
+ucs <- ucs[3] %>% 
   sf::st_read()
 ```
 
@@ -213,7 +228,7 @@ ucs %>%
   geom_sf()
 ```
 
-![](Unidades-de-conservação-em-território-brasileiro_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](Unidades-de-conservação-em-território-brasileiro_files/figure-gfm/unnamed-chunk-67-1.png)<!-- -->
 
 ## Território brasileiro, baixado do [Instituto Brasileiro de Geografia Estatística](https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2022/Brasil/BR/BR_Pais_2022.zip)
 
@@ -251,57 +266,7 @@ br %>%
   geom_sf()
 ```
 
-![](Unidades-de-conservação-em-território-brasileiro_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
-
-## Biomas, baixados do [Instituto Brasileiro de Geografia Estatística](http://geoftp.ibge.gov.br/informacoes_ambientais/estudos_ambientais/biomas/vetores/Biomas_250mil.zip)
-
-``` r
-biomas <- unzip("Biomas_250mil.zip")
-
-biomas <- biomas[6] %>% 
-  sf::st_read()
-```
-
-    ## Reading layer `lm_bioma_250' from data source 
-    ##   `G:\Meu Drive\UFPE\boana semilineata\lm_bioma_250.shp' 
-    ##   using driver `ESRI Shapefile'
-    ## Simple feature collection with 6 features and 2 fields
-    ## Geometry type: MULTIPOLYGON
-    ## Dimension:     XY
-    ## Bounding box:  xmin: -73.98318 ymin: -33.75118 xmax: -28.84777 ymax: 5.269581
-    ## Geodetic CRS:  SIRGAS 2000
-
-``` r
-biomas
-```
-
-    ## Simple feature collection with 6 features and 2 fields
-    ## Geometry type: MULTIPOLYGON
-    ## Dimension:     XY
-    ## Bounding box:  xmin: -73.98318 ymin: -33.75118 xmax: -28.84777 ymax: 5.269581
-    ## Geodetic CRS:  SIRGAS 2000
-    ##            Bioma CD_Bioma
-    ## 1       Amazônia        1
-    ## 2       Caatinga        2
-    ## 3        Cerrado        3
-    ## 4 Mata Atlântica        4
-    ## 5          Pampa        5
-    ## 6       Pantanal        6
-    ##                         geometry
-    ## 1 MULTIPOLYGON (((-44.08515 -...
-    ## 2 MULTIPOLYGON (((-41.7408 -2...
-    ## 3 MULTIPOLYGON (((-43.39009 -...
-    ## 4 MULTIPOLYGON (((-48.70814 -...
-    ## 5 MULTIPOLYGON (((-52.82472 -...
-    ## 6 MULTIPOLYGON (((-57.75946 -...
-
-``` r
-biomas %>% 
-  ggplot() +
-  geom_sf()
-```
-
-![](Unidades-de-conservação-em-território-brasileiro_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](Unidades-de-conservação-em-território-brasileiro_files/figure-gfm/unnamed-chunk-68-1.png)<!-- -->
 
 # **Áreas em Km²**
 
@@ -343,3 +308,90 @@ ucs_area * 100 / br_area
 ```
 
     ## 29.4871 [1]
+
+## Áreas ocupadas por Unidades de conservação em Km² por bioma
+
+``` r
+ucs %>% 
+  sf::st_make_valid() %>% 
+  dplyr::mutate(`Área em Km²` = ucs %>% sf::st_make_valid() %>% sf::st_area() / 1000000 ) %>% 
+  tidyr::pivot_longer(cols = amazonia:marinho,
+                      names_to = "Bioma",
+                      values_to = "values") %>% 
+  dplyr::filter(!values %>% is.na()) %>% 
+  dplyr::mutate(Bioma = dplyr::case_when(Bioma == "amazonia" ~ "Amazônia",
+                                         Bioma == "matlantica" ~ "Mata Atlântica",
+                                         Bioma == "caatinga" ~ "Caatinga",
+                                         Bioma == "cerrado" ~ "Cerrado",
+                                         Bioma == "pampa" ~ "Pampa",
+                                         Bioma == "pantanal" ~ "Pantanal",
+                                         Bioma == "marinho" ~ "Sistema Costeiro")) %>% 
+  dplyr::group_by(Bioma) %>% 
+  dplyr::summarise(`Área de Unidades de conservação em Km² por bioma` = sum(`Área em Km²`) %>% round(2)) %>% 
+  dplyr::mutate(`Área de Unidades de conservação em Km² por bioma` = `Área de Unidades de conservação em Km² por bioma` %>% stringr::str_remove(" [m^2]")) %>% 
+  as.data.frame() %>% 
+  dplyr::select(1:2)
+```
+
+    ## although coordinates are longitude/latitude,
+    ## st_union assumes that they are planar
+
+    ##              Bioma
+    ## 1         Amazônia
+    ## 2         Caatinga
+    ## 3          Cerrado
+    ## 4   Mata Atlântica
+    ## 5            Pampa
+    ## 6         Pantanal
+    ## 7 Sistema Costeiro
+    ##   Área de Unidades de conservação em Km² por bioma
+    ## 1                                       1233492.73
+    ## 2                                        111030.01
+    ## 3                                        240816.61
+    ## 4                                        667334.15
+    ## 5                                          6069.52
+    ## 6                                          6784.63
+    ## 7                                        1085434.9
+
+# **Distribuição das unidades de conservação ao longo dos biomas**
+
+``` r
+ucs %>% 
+  sf::st_make_valid() %>% 
+  dplyr::mutate(`Área em Km²` = ucs %>% sf::st_make_valid() %>% sf::st_area() / 1000000 %>% as.numeric()) %>% 
+  tidyr::pivot_longer(cols = amazonia:marinho,
+                      names_to = "Bioma",
+                      values_to = "values") %>% 
+  dplyr::filter(!values %>% is.na()) %>% 
+  dplyr::mutate(Bioma = dplyr::case_when(Bioma == "amazonia" ~ "Amazônia",
+                                         Bioma == "matlantica" ~ "Mata Atlântica",
+                                         Bioma == "caatinga" ~ "Caatinga",
+                                         Bioma == "cerrado" ~ "Cerrado",
+                                         Bioma == "pampa" ~ "Pampa",
+                                         Bioma == "pantanal" ~ "Pantanal",
+                                         Bioma == "marinho" ~ "Sistema Costeiro")) %>% 
+  ggplot() +
+  geom_sf(data = br, color = "black") +
+  geom_sf(aes(fill = Bioma, color = Bioma), alpha = 0.3) +
+  scale_fill_manual(values = c("darkgreen", "gold2", "orange3", "green3", "purple", "red2", "lightblue3")) +
+  scale_color_manual(values = c("darkgreen", "gold4", "orange4", "green4", "purple3", "red4", "lightblue4")) +
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0)) +
+  theme(axis.text = element_text(color = "black", size = 12),
+        axis.title = element_text(color = "black", size = 15),
+        panel.grid = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.ontop = T,
+        axis.line = element_blank(),
+        plot.background = element_rect(fill = "white", color = "white"),
+        panel.background = element_blank(),
+        panel.border = element_rect(colour = "black", fill = NA, linewidth = 0.45),
+        legend.key = element_rect(color = "white", fill = "white"),
+        legend.title = element_text(hjust = 0.5, size = 15),
+        legend.position = "bottom",
+        legend.text = ggtext::element_markdown(color = "black", size = 12),
+        strip.background = element_rect(colour = "black", fill = "gray90"),
+        strip.text.x = element_text(size = 13))
+```
+
+![](Unidades-de-conservação-em-território-brasileiro_files/figure-gfm/unnamed-chunk-73-1.png)<!-- -->
