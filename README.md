@@ -253,8 +253,7 @@ br %>%
 
 ![](Unidades-de-conservação-em-território-brasileiro_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
-## Biomas, baixados do [Instituto Brasileiro de Geografia
-Estatística](http://geoftp.ibge.gov.br/informacoes_ambientais/estudos_ambientais/biomas/vetores/Biomas_250mil.zip)
+## Biomas, baixados do [Instituto Brasileiro de Geografia Estatística](http://geoftp.ibge.gov.br/informacoes_ambientais/estudos_ambientais/biomas/vetores/Biomas_250mil.zip)
 
 ``` r
 biomas <- unzip("Biomas_250mil.zip")
