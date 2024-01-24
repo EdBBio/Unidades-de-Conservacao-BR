@@ -228,7 +228,7 @@ ucs %>%
   geom_sf()
 ```
 
-![](Unidades-de-conservação-em-território-brasileiro_files/figure-gfm/unnamed-chunk-67-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 ## Território brasileiro, baixado do [Instituto Brasileiro de Geografia Estatística](https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2022/Brasil/BR/BR_Pais_2022.zip)
 
@@ -266,7 +266,7 @@ br %>%
   geom_sf()
 ```
 
-![](Unidades-de-conservação-em-território-brasileiro_files/figure-gfm/unnamed-chunk-68-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 # **Áreas em Km²**
 
@@ -394,4 +394,4 @@ ucs %>%
         strip.text.x = element_text(size = 13))
 ```
 
-![](Unidades-de-conservação-em-território-brasileiro_files/figure-gfm/unnamed-chunk-73-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
